@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tehtyjen töiden tietokanta</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        form { max-width: 400px; margin-bottom: 20px; }
+        input, textarea { width: 100%; margin-bottom: 10px; padding: 8px; }
+        button { background-color: #007BFF; color: #fff; padding: 10px; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .work-list { margin-top: 20px; }
+        .work-item { margin-bottom: 10px; border: 1px solid #ccc; padding: 10px; border-radius: 5px; }
+        .actions { display: flex; gap: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Lisää tehty työ</h1>
+    <form id="workForm">
+        <input type="date" id="date" required>
+        <input type="number" id="hours" placeholder="Työaika tunteina" required>
+        <input type="text" id="task" placeholder="Tehty työ" required>
+        <textarea id="description" placeholder="Työn kuvaus" rows="4" required></textarea>
+        <button type="submit">Lisää</button>
+    </form>
+    <h2>Tallennetut työt</h2>
+    <div id="workList" class="work-list"></div>
+    <button id="download">Lataa tiedot</button>
+
+    <script>
+        const workForm = document.getElementById('workForm');
+        const workList = document.getElementById('workList');
+        const downloadBtn = document.getElementById('download');
+        let workData = [];
+
+        workForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const date = document.getElementById('date').value;
+            const hours = document.getElementById('hours').value;
+            const task = document.getElementById('task').value;
+            const description = document.getElementById('description').value;
+            
+            const workItem = {
+                id: Date.now(),
+                date,
+                hours,
+                task,
+                description
+            };
+            
+            workData.push(workItem);
+            renderWorkList();
+            workForm.reset();
+        });
+
+        function renderWorkList() {
+            workList.innerHTML = '';
+            workData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'work-item';
+                div.innerHTML = `
+                    <p><strong>Päivämäärä:</strong> ${item.date}</p>
+                    <p><strong>Työaika:</strong> ${item.hours} tuntia</p>
+                    <p><strong>Tehty työ:</strong> ${item.task}</p>
+                    <p><strong>Kuvaus:</strong> ${item.description}</p>
+                    <div class="actions">
+                        <button onclick="updateWork(${item.id})">Muokkaa</button>
+                        <button onclick="deleteWork(${item.id})">Poista</button>
+                    </div>
+                `;
+                workList.appendChild(div);
+            });
+        }
+
+        function updateWork(id) {
+            const item = workData.find(work => work.id === id);
+            if (item) {
+                document.getElementById('date').value = item.date;
+                document.getElementById('hours').value = item.hours;
+                document.getElementById('task').value = item.task;
+                document.getElementById('description').value = item.description;
+                workData = workData.filter(work => work.id !== id);
+                renderWorkList();
+            }
+        }
+
+        function deleteWork(id) {
+            workData = workData.filter(work => work.id !== id);
+            renderWorkList();
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(workData, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute('href', dataStr);
+            downloadAnchor.setAttribute('download', 'tyot.json');
+            downloadAnchor.click();
+        });
+    </script>
+</body>
+</html>
