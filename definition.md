@@ -22,4 +22,4 @@ Tässä dokumentissa määritellään sivuston ominaisuuksia ja toimintoja
 
 ## Prototyyppi. 
 
-![[proto.png]]
+![proto](proto.png)
