@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-tyotiedot
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: tyotiedot
+      POSTGRES_PASSWORD: Sauna123
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
