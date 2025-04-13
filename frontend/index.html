@@ -1,16 +1,35 @@
+<!-- Määritellään dokumentin tyyppi HTML5:ksi -->
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Määrittää merkistökoodauksen UTF-8:ksi, joka tukee mm. ääkkösiä -->
         <meta charset="utf-8">
+        <!-- Skaalaa näkymän mobiililaitteille sopivaksi -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Sivun otsikko, näkyy selaimen välilehdessä -->
         <title>Yew + Tailwind</title>
+        <!-- 
+        Tuodaan Tailwind CSS CDN:nä suoraan netistä.
+        Tämä mahdollistaa utility-luokkien (esim. bg-blue-500) käytön ilman paikallista buildausta.
+        Huom: tuotantoympäristössä kannattaa käyttää lokaalisti buildattua versiota purkaen tarpeettomat luokat.
+        -->
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
+        <!-- 
+        Tämä on root-divi, johon Yew renderöi koko frontend-sovelluksen.
+        Yew etsii tämän ID:n perusteella, minne sovellus liitetään DOM:iin.
+        -->
         <div id="app"></div>
+        <!-- 
+        Tämä skripti lataa ja suorittaa WebAssembly-moduulin.
+        - `type="module"` mahdollistaa ESM-syntaksin käytön (esim. import).
+        - Oletetaan, että Yew-frontend on käännetty WebAssemblyksi ja generoitu JS-glue-koodi sijaitsee .pkg-kansiossa.
+        - `init()` on automaattisesti luotu käynnistysfunktio, joka käynnistää WASM-moduulin ja liittää sen `#app`-elementtiin.
+        -->
         <script type = "module">
-            import init from '.pkg/frontend.js';
-            init();
+            import init from '.pkg/frontend.js'; // Lataa wasm-bindgenin generoiman JS-moduulin
+            init(); // Käynnistää Yew-sovelluksen
         </script>
     </body>
 </html>
