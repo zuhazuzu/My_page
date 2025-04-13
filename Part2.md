@@ -1,5 +1,7 @@
 
 Frontendin ajossa saapi aina ottaa F-securen virusturvan pois päältä jotta toi homma pelaa.
+Käytin apuna Francesco Ciulla nimisen henkilön apuja ja ohjeita.
+
 ## 1. Enviroment.
 
 Tämä projekti on vain paikallisesti koneella. 
