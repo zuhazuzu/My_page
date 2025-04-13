@@ -109,8 +109,8 @@ fn app() -> Html {
         let get_users = get_users.clone();
 
         Callback::from(move |id: i32| {
-            let message = message.clone();
-            let get_users = get_users.clone();
+            let message = message.clone(); // viestin tila
+            let get_users = get_users.clone(); // käyttäjälistan päivitys
 
             spawn_local(async move {
                 let response = Request::delete(
@@ -119,11 +119,13 @@ fn app() -> Html {
                 ).send().await;
 
                 match response {
-                    Ok(resp) if resp.ok() => {
+                    Ok(resp) if resp.ok() => { // onnistunut pyyntö
+                        // Asetetaan viesti onnistumisesta
+                        // ja päivitetään käyttäjälista
                         message.set("User deleted successfully".into());
-                        get_users.emit(()); // Päivitetään lista
+                        get_users.emit(()); 
                     }
-
+                    // epäonnistunut pyyntö
                     _ => message.set("Failed to delete user".into()),
                 }
             });

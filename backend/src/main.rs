@@ -62,7 +62,12 @@ async fn get_users(conn: &State<Client>) -> Result<Json<Vec<User>>, Custom<Strin
 /// Suorittaa varsinaisen SELECT-kyselyn tietokantaan.
 /// Palauttaa vektorin User-rakenteita, joka vastaa `users`-taulun sisältöä.
 /// Virheen sattuessa palautetaan HTTP 500 (Internal Server Error).
-
+/// Tietokantavirheet käsitellään Custom-tyypillä.
+/// Parametrit:
+/// - `client`: tietokantayhteys
+/// - `query`: SQL-kysely (SELECT users)
+/// - `params`: kyselyn parametrit (tässä tapauksessa tyhjät, koska haetaan kaikki käyttäjät)
+/// Palauttaa vektorin käyttäjistä tai HTTP-virheen.
 async fn get_users_from_db(client: &Client) -> Result<Vec<User>, Custom<String>> {
     let users = client
         .query("SELECT id, name, email FROM users", &[]).await
@@ -76,7 +81,7 @@ async fn get_users_from_db(client: &Client) -> Result<Vec<User>, Custom<String>>
             email: row.get(2) }) // sähköposti (TEXT)
         .collect::<Vec<User>>(); // Kerätään kaikki käyttäjät vektoriin
 
-    Ok(users)
+    Ok(users) // Palautetaan käyttäjät vektorina
 }
 
 // ---------------------------
@@ -126,7 +131,13 @@ async fn delete_user(conn: &State<Client>, id: i32) -> Result<Status, Custom<Str
 /// - `query`: suoritettava SQL-kysely (esim. INSERT, UPDATE, DELETE)
 /// - `params`: viitteet parametreihin kyselyssä ($1, $2, ...).
 /// Palauttaa rivien lukumäärän tai HTTP-virheen jos kysely epäonnistuu.
-
+/// Virheiden käsittely tapahtuu Custom-tyypillä.
+/// Tietokantavirheet käsitellään Custom-tyypillä.
+/// Parametrit:
+/// - `client`: tietokantayhteys
+/// - `query`: SQL-kysely (INSERT, UPDATE, DELETE)
+/// - `params`: kyselyn parametrit (esim. &[&user.name, &user.email])
+/// Palauttaa rivien lukumäärän tai HTTP-virheen.
 async fn execute_query(
     client: &Client,
     query: &str,
