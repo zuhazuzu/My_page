@@ -1,37 +1,40 @@
-# Project phase 1
-
-
+****
 Tässä dokumentissa määritellään sivuston ominaisuuksia ja toimintoja 
+
+Projekti luodaan Rust ohjelmointikieltä käyttäen ja siihen liittyvät tarpeellisuudet ovat 
+1. Rocket FrameWork
+2. Fronted tulee olemaan Yew frameworkilla ja siellä on apuna Gloo kirjastopaketti.
+
+Rust-ohjelmointikielen haastavuus ja siihen liittyvät uudet teknologiat tekee projektin valmistumisesta epävarmaa.
 
 ## 1. Käyttäjäpersoonat:
 
-| Käyttäjä         | Persoona     | Tavoite                                                                                              | Halutut toiminnot                            | Käyttäytyminen                                                 |
-| :--------------- | :----------- | :--------------------------------------------------------------------------------------------------- | :------------------------------------------- | -------------------------------------------------------------- |
-| Otto oppija      | Opiskelija   | Kirjata ylös tehtyjä töitään, tarkastella ja ladata annettuja tietoja                                | Tarkasella syötettyjä tietoja.               | Lisää säännöllisesti tietoa ja muuttaa sitä usein              |
-| Maria Makia      | Harrastelija | Haluaa pitää kirjaa puutarhan hoidosta, jotta voi tarkastella onnistumisia ja epäonnistumisen syitä. | Sivun helppokäyttöisyys.                     | Satunnainen käyttäjä, joka listää paljon tietoa kerralla.      |
-| Taneli Työläinen | Ohjelmoija   | Sivusto, jonne voi syöttää tehsyjä töitä ja ladata ne valmiiksi oikeaan muotoon.                     | Ladata tietokanta MD formaattiin taulukkona. | Käyttää sivustoa usein ja lisää paljon tietoa pienissä erissä. |
+| Käyttäjä         | Persoona     | Tavoite                                                                          | Halutut toiminnot                            | Käyttäytyminen                                                 |
+| :--------------- | :----------- | :------------------------------------------------------------------------------- | :------------------------------------------- | -------------------------------------------------------------- |
+| Otto oppija      | Opiskelija   | Kirjata käyttäjälistaa ja tarkastella sen sisältöä.                              | Tarkasella syötettyjä tietoja.               | Lisää säännöllisesti tietoa ja muuttaa sitä usein              |
+| Maria Makia      | Harrastelija | Sivun pitää olla intuitiivinen ja helppokäyttöinen                               | Sivun helppokäyttöisyys.                     | Satunnainen käyttäjä, joka listää paljon tietoa kerralla.      |
 
 ## 2. Käyttötapaukset.
 
-| Tapaus                 | Kuvaus                                                                                               | Esimerkki                                                                                                                              |
-| :--------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Tiedon lisääminen.     | Käyttäjä täyttää lomakkeen, jossa on päivämäärä, käytty aika, tehty työ/toiminta ja tehtävän kuvaus. | Otto oppija haluaa lisätä käytetyn työn kirjaukseen.                                                                                   |
-| Tietojen tarkastelu.   | Käyttäjä kykenee näkemään tiedot sivustolta suoraan.                                                 | Maria Makian orkidea tiputti lehdet ja hän sivutolle tullessaan näkee millon hän on kasviaan viimeksi kastellut.                       |
-| Tietojen muokkaaminen. | Kirjattuja tietoja tulee kyetä muokkaamaan.                                                          | Otto opiskelija päättikin jatkaa keskenäistä tehtävää samana päivänä ja hän haluaa lisätä tehdyn työn määrää ja kuvausta tietokantaan. |
-| Tietojen poistaminen.  | Käyttäjän tulee kyetä poistaa tietoa.                                                                | Maria Makian kasvi on kuollut ja hän on hankkinut uuden. vanhat tiedot olisi hyvä poistaa ja aloittaa tietokanta alusta.               |
-| Tietojen lataaminen.   | Käyttäjä voi ladata tietokannan MD formaatissa.                                                      | Otto oppija haluaa lisätä tiedot GitHubiin ja hän lataa sivustolta MD tiedoston, jossa tietokanta on.                                  |
+
+
+| Tapaus                 | Kuvaus                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Esimerkki                                                                                                                |
+| :--------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Tiedon lisääminen.     | Käyttäjä avaa sivuston jossa on kaksi lomaketta joiden sisällä on väliaikaiset otsikot: "Name" ja "Email". näihin lomakkeisiin käyttäjä täyttää tarvittavat tiedot jonka jälkeen painaessaan "Create user" painiketta (joka on jo sivun avatessa näkyvissä) syötetyt tiedot lisätään tietokantaan POST api pyynnön avulla ja käyttäjä saa tiedon "user created"                                                                                                                                                                               | Käyttäjä haluaa lisätä sähköpostitietoja tietokantaan jossa lisänä on sähköpostiin assosiaationa nimi taikka nimimerkki. |
+| Tietojen tarkastelu.   | Sivuston avatessa käyttäjällä on saatavissa painike(get users/fetch users, joku kuvaava termi.) jota painaessaan sovellus paljastaa tietokannan sisällön selkeästi luettavassa muodossa jos tietokannassa on sisältöä (!Tulisiko olla ilmoitus jos tietokanta tyhjä?)                                                                                                                                                                                                                                                                         | Käyttäjä ei halua muokata tietokantaa vaan tarkastella sen sisältöä (!Kannattaako tämä toiminto olla napin takana?)      |
+| Tietojen muokkaaminen. | Käyttäjä avaa sivuton jonka jälkeen hän avaa tietokannan tarkastelun kuten yllä mainitaan. Jos tietokannassa on sisältöä, tietokannan arvojen lopuksi käyttäjälle ilmestyy napit "delete" ja "edit". Edit näppäintä painamalla käyttäjä saa mahdollisuuden muokata arvoa johon edit näppäin oli liitetty. Muokkaaminen tapahtuu samalla tavalla kuin tiedon lisääminen(katso tapaus 1). Käyttäjän lisättyä taikka poistettua tietoa antaa ohjelma vastauksen "User updated", jos tietoa muokattiin ja "User deleted", jos tietoa poistettiin. | Käyttäjä voi muokata tietokannan tietoja tarpeidensa mukaan.                                                             |
 
 ## 3. Prototyyppi. 
 
-![proto](proto.png)
+![[Pasted image 20250423124538.png]]
 
 Prototyypin tärkeimmät ominaisuudet:
-- Neljä kenttää, jossa on päivämäärä, työn määrä, lyhyt kuvaus työstä ja tarkka kuvaus työstä.
-- Lisää näppäin joka laittaa annatun tiedon tietokantaan.
-- Listaus tehdyistä töistä joissa nähdään sisältö.
-- Kyky muokata tietoa.
-- Kyky poistaa tietoa. 
-- Käyttäjällä on mahdollisuus ladata tietoa.
+- Kaksi kenttää, joissa on "Nimi" ja "Sähköposti" joihin käyttäjä voi lisätä tietoja.(Kuvaava termi kenttiin!)
+- "Lisää" nappi joka laittaa(POST) annetun tiedon tietokantaan. 
+- Näppäin jonka avulla tietokannan sisältöä voidaan tarkastella(Kuvaava nimi napille).
+- Näppäin tietojen muokkaamiselle. Näppäin tulee olla sijoitettuna siten että käyttäjä ymmärtää mitä tietoa ollaan muokkaamassa.
+- Näppäin tietojen poistamiselle. Näppäin tulee olla sijoitettuna siten että käyttäjä ymmärtää mitä tietoa ollaan poistamassa.
+- Käyttäjällä on mahdollisuus ladata tietoa(tässä vaiheessa (Ctrl + C) + (Ctrl + V).)
 - Painikkeiden kuvaukset ovat selkeitä ja intuitiivisia. 
 - Sivuston tulee olla responsiivinen erilaisia laitteita varten. 
 - Sisuston värimaailman tulee olla selkeä näkörajoituksista huolimatta.
@@ -41,17 +44,16 @@ Päätökset sivuston ulkonäöstä ovat avoimia muutoksille.
 ## 4.Tietoarkkitehtuuri ja tekninen suunnittelu.
 
 1. Tietokannan Rakenne: 
-	- Tietokanta sisältää seuraavat sarakkeet: ID, date, time, description ja definition.
+	- Tietokanta sisältää seuraavat sarakkeet: ID, name, email.
 2. Sivuston rakenne:
 	- Etusivu, jossa toiminntot ovat saatavilla.
 	- "Lisää" toiminto.
 	- "Muokkaa" toiminto olemassa olevaan tietoon liittyen.
 	- "Poista" toiminto olemassa olevaan tietoon liittyen.
-	- "Lataa tiedot" joka lataa kaikki olemassa olevat tiedot laitteelle MD- muodossa.
-Sivusto luodaan käyttämällä JavaScript ja React fronttia. Backend tulisi olla käyttämällä Express.
-Sivuston tietokanta tulee olla MySQL- tietokantaa käyttämällä.
+Sivusto luodaan käyttämällä Rust-ohjelmoinitkieltä ja Rocket frameworkkia. 
+Sivuston tietokanta tulee olla PostgreSQL- tietokantaa käyttämällä.
 Sivustolla tulee olla CRUD toiminnot joiden avulla tietokannan hallinta on yksinkertaista.
-Kehitys tulee tapahtua pilvipalvelussa(Google cloud), mutta ajankäytön puitteissa voidaan tyytyä virtuaalikoneen käyttöön.
+Kehitys tulee tapahtua pilvipalvelussa(Google cloud), mutta ajankäytön puitteissa voidaan tyytyä paikalliseen toimintaan.
 
 ## 5. Projektin hallinta.
 
@@ -76,6 +78,7 @@ Lisäksi tulee olla käytettävyys testejä, joiden avulla tarkastellaan sivusto
 4. Painikkeilla on responsiivisuus(painaessa painikkeen väri muuttuu)
 End 2 End testaus. Luodaan testejä jotka simuloi käyttäjätilanteita. Esim
 5. Testi luo arvon, tarkastaa sen olemassaolon, muokkaa sitä, tarkastaa muutoksen. poistaa tiedon ja tarkastaa tiedon poistumisen. 
+Kuormitustestaus jonka avulla voidaan simuloida usean käyttäjän samanaikaista toimintaa. (tämä valikoitui)
 
 ## 7. Tiedon lataaminen
 
