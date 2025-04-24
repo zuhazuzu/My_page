@@ -44,7 +44,7 @@ Tämän testin tein käyttäjämäärillä 200, 500 ja 100.
 Huomasin pian ongelman. kaikissa testeissä 75% epäonnistuu. oletettavasti kaikki GET pyynnöt onnistuu ja kaikki muut epäonnistuu. ID:t on ihan mitä sattuu.
 Tämähän on ihan paska testi. Koitetaan tehdä parempi.
 
-Uusi testi ja otetaan vähän maltillisemmin tuo lähestyminen. Vain get pyyntöjä ja lisätään virheenhallintaa jotta nähdään vähän missä homma kusee. vähennetään käyttäjiä.
+Uusi testi ja otetaan vähän maltillisemmin tuo lähestyminen. Vain get pyyntöjä ja lisätään virheenhallintaa jotta nähdään vähän missä homma kusee. Vähennetään käyttäjiä.
 
 ```javascript
 import http from 'k6/http'; // Tuodaan k6:n HTTP-moduuli
@@ -158,6 +158,7 @@ Tein testin muokkaamalla yllä mainittuja arvoja:
 	5. VU 1000 D30
 	6. VU 1200 D30
 	7. VU 100 D150
+
 Ylläolevista testeistä löytyy tallennettuna data  tiedostoon 
 Tests/k6-test_VU(määrä)D(aika).md
 
@@ -167,10 +168,10 @@ Testeistä voi tehdä seuraavia johtopäätöksiä:
 ```
 ✗ http_req_duration: avg=939.42ms min=515.9µs med=956.19ms max=2.48s   p(90)=1.57s  p(95)=1.78s
 ```
-3. 1200 samanaikaista käyttäjää aiheuttaa toimimattomuutta ohjelmassa laitteella jolla testit on tehty. Testeissä laitteen muistin toiminta nousee ~97% joka mahdollisesti on pullonkaula.
+3. 1200 samanaikaista käyttäjää aiheuttaa toimimattomuutta ohjelmassa laitteella jolla testit on tehty. Testeissä laitteen muistin toiminta nousee ~95% joka mahdollisesti on pullonkaula.
    Toinen testi joka suoritettiin samoilla ehdoilla onnistui siten, että kaikki pyynnöt onnistui, mutta pyyntöjen pituus ylitti hyväksyttävän ajan.
    
-   Muisti 92%, Prosessori75%!![\[\[Pasted image 20250424134701.png\]\]](Prossu.png)
+   Muisti 92%, Prosessori75% ![\[\[Pasted image 20250424134701.png\]\]](Prossu.png)
    
 5. Testin keston noustaessa 150sekuntiin luotujen iteraatioiden määrä nousi yli 10000 joka oli korkeampi kuin suositeltu määrä k6 testeille. *Tests\k6-test_VU100D150.md* rivi 17.
 ```
