@@ -150,7 +150,7 @@ Jos pyynnöistä 95% on ajassa <500ms on testi hyväksytty.
 Jos pyynnöistä alle 1% epäonnistuu on testi hyväksytty.
 
 Tein testin muokkaamalla yllä mainittuja arvoja:
-- VU: muutokset Duration(sekunteina) muutokset:
+- VU(käyttäjämäärä) muutokset Duration(sekunteina) muutokset:
 	1. VU 50 D30
 	2. VU 100 D30
 	3. VU 500 D30
@@ -172,8 +172,8 @@ Testeistä voi tehdä seuraavia johtopäätöksiä:
    
    Muisti 92%, Prosessori75%!![\[\[Pasted image 20250424134701.png\]\]](Prossu.png)
    
-5. Testin keston noustaessa 150sekuntiin luotujen iteraatioiden määrä nousi yli 10000 joka oli korkeampi kuin suositeltu määrä k6 testeille.
+5. Testin keston noustaessa 150sekuntiin luotujen iteraatioiden määrä nousi yli 10000 joka oli korkeampi kuin suositeltu määrä k6 testeille. *Tests\k6-test_VU100D150.md* rivi 17.
 ```
    WARN[0115] The test has generated metrics with 200035 unique time series, which is higher than the suggested limit of 100000 and could cause high memory usage. Consider not using high-cardinality values like unique IDs as metric tags or, if you need them in the URL, use the name metric tag or URL grouping. See https://grafana.com/docs/k6/latest/using-k6/tags-and-groups/ for details.  component=metrics-engine-ingester
 ``` 
-Testit ja tulokset löytyy sijainnista [text](Tests)
+Testit ja tulokset löytyy sijainnista [Tests](Tests)
