@@ -83,4 +83,5 @@ Tässävaiheessa olen tyytyväinen, että valitsin itseäni kiinnostavan ohjelmo
 | 23.4.2025      |        5         |                 k6 Testien tekemistä                 |
 | 24.4.2025      |        3         | Testien viimeistely. Testien ajo. Raportin tekeminen |
 | 25.4.2025      |        4         |             Raportin ja esityksen teko.              |
+
 YHT 45h
