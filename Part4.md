@@ -85,3 +85,6 @@ Tässävaiheessa olen tyytyväinen, että valitsin itseäni kiinnostavan ohjelmo
 | 25.4.2025      |        4         |             Raportin ja esityksen teko.              |
 
 YHT 45h
+
+
+https://www.youtube.com/watch?v=MHEymomKhUQ (video näkyvissä vain niile joilla linkki.)
