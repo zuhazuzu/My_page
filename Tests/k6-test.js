@@ -2,8 +2,8 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 
 export const options = {
-    vus: 1200, // Samanaikaisia virtuaalikäyttäjiä. TÄMÄ MÄÄRÄ MUUTTUU.
-    duration: '30s', // Testin kesto
+    vus: 10, // Samanaikaisia virtuaalikäyttäjiä. TÄMÄ MÄÄRÄ MUUTTUU.
+    duration: '10s', // Testin kesto
     thresholds: {
         http_req_duration: ['p(95)<500'], // 95% pyynnöistä alle 500ms
         http_req_failed: ['rate<0.01'], // Alle 1% pyynnöistä epäonnistuu
